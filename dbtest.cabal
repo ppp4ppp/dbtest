@@ -24,3 +24,4 @@ executable dbtest
                       , text
                       , transformers
                       , persistent-postgresql
+                      , monad-logger

@@ -13,6 +13,7 @@ import qualified Database.PostgreSQL.LibPQ  as PQ
 import qualified Database.PostgreSQL.Simple as PS
 
 import Data.Text.Encoding (encodeUtf8)
+import Control.Monad.Logger
 
 import Control.Monad.IO.Class
 
@@ -36,7 +37,8 @@ dbtest username password = do
     liftIO $ print ("test2"::String)  
     simple1 <- return $ PS.connectPostgreSQL conBS1
     liftIO $ print ("test3"::String)  
-    -- pool1 <- createPostgresqlPool conBS1 20
+    pool1 <- (runStdoutLoggingT $ createPostgresqlPool conBS1 20)
+    -- pool1 <- 
     liftIO $ print ("test4"::String)  
     -- liftIO $ PQ.db pqp1 >>= (liftIO . print)
     where
